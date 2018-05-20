@@ -36,6 +36,7 @@ public class Client {
             }
         } catch (IOException ex) {
             System.out.println("IOException encountered.");
+            ex.printStackTrace();
         }
     }
 }
