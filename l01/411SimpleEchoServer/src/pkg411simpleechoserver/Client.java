@@ -31,6 +31,8 @@ public class Client {
                     String response = br.readLine();
                     System.out.println("Server response: " + response);
                 }
+
+                scanner.close();
             }
         } catch (IOException ex) {
             System.out.println("IOException encountered.");
