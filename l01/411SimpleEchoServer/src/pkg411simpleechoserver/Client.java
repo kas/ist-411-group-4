@@ -41,7 +41,7 @@ public class Client {
                 }
             }
         } catch (IOException ex) {
-            // Handle exceptions
+            System.out.println("IOException encountered.");
         }
     }
 }
