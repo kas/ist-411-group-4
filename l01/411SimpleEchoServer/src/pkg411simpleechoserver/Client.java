@@ -20,6 +20,8 @@ public class Client {
                     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                     BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                 System.out.println("Connected to server");
+
+                // Create Scanner so Client can capture user input
                 Scanner scanner = new Scanner(System.in);
                 while (true) {
                     System.out.print("Enter text (type quit to quit): ");
@@ -27,6 +29,8 @@ public class Client {
                     if ("quit".equalsIgnoreCase(inputLine)) {
                         break;
                     }
+
+                    // Write user input to PrintWriter so Server can access user input
                     out.println(inputLine);
                     String response = br.readLine();
                     System.out.println("Server response: " + response);
