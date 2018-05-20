@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg411simpleechoserver;
 
 import java.io.BufferedReader;
@@ -21,12 +16,9 @@ public class Client {
             System.out.println("Waiting for connection.....");
             InetAddress localAddress = InetAddress.getLocalHost();
 
-            try (Socket clientSocket = new Socket(localAddress, 6000);
-                    PrintWriter out = new PrintWriter(
-                            clientSocket.getOutputStream(), true);
-                    BufferedReader br = new BufferedReader(
-                            new InputStreamReader(
-                                    clientSocket.getInputStream()))) {
+            try (Socket clientSocket = new Socket(localAddress, Values.PORT);
+                    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                 System.out.println("Connected to server");
                 Scanner scanner = new Scanner(System.in);
                 while (true) {
