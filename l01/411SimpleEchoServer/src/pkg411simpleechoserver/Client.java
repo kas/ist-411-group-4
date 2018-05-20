@@ -22,7 +22,7 @@ public class Client {
                 System.out.println("Connected to server");
                 Scanner scanner = new Scanner(System.in);
                 while (true) {
-                    System.out.print("Enter text: ");
+                    System.out.print("Enter text (type quit to quit): ");
                     String inputLine = scanner.nextLine();
                     if ("quit".equalsIgnoreCase(inputLine)) {
                         break;
