@@ -11,30 +11,35 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class L03 {
-  public static void main(String[] args) throws MalformedURLException, IOException {
-    System.out.println("Hello World!");
 
-    String coordinates = "40.7982,-77.8599"; // Penn State coordinates
-    String stringUrl = String.format("https://api.weather.gov/points/%s/forecast", coordinates);
+    public static void main(String[] args) throws MalformedURLException, IOException {
+        System.out.println("Here is the 7 day weather forcast for Penn State:");
 
-    URL url = new URL(stringUrl);
-    URLConnection urlConnection = url.openConnection();
-    urlConnection.connect();
+        String coordinates = "40.7982,-77.8599"; // Penn State coordinates
+        String stringUrl = String.format("https://api.weather.gov/points/%s/forecast", coordinates);
 
-    JsonParser jsonParser = new JsonParser();
-    JsonElement jsonElement = jsonParser.parse(new InputStreamReader((InputStream) urlConnection.getContent()));
+        URL url = new URL(stringUrl);
+        URLConnection urlConnection = url.openConnection();
+        urlConnection.connect();
 
-    JsonObject jsonObject = jsonElement.getAsJsonObject();
+        JsonParser jsonParser = new JsonParser();
+        JsonElement jsonElement = jsonParser.parse(new InputStreamReader((InputStream) urlConnection.getContent()));
 
-    // String jsonString = jsonObject.toString();
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+        
+        for(int i=0;i<14;i++){
+            JsonObject period = jsonObject.get("properties").getAsJsonObject().get("periods").getAsJsonArray().get(i)
+                .getAsJsonObject();
 
-    JsonObject period = jsonObject.get("properties").getAsJsonObject().get("periods").getAsJsonArray().get(0)
-        .getAsJsonObject();
+        String name = period.get("name").getAsString();
+        String temperature = period.get("temperature").getAsString();
+        String temperatureUnit = period.get("temperatureUnit").getAsString();
 
-    String name = period.get("name").getAsString();
-    String temperature = period.get("temperature").getAsString();
-    String temperatureUnit = period.get("temperatureUnit").getAsString();
+        System.out.println(String.format("%s at coordinates %s: %s%s", name, coordinates, temperature, temperatureUnit));
+        
+    }
 
-    System.out.println(String.format("%s at coordinates %s: %s%s", name, coordinates, temperature, temperatureUnit));
-  }
+        // String jsonString = jsonObject.toString();
+        
+    }
 }
