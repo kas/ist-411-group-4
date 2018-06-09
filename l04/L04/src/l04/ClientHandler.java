@@ -58,7 +58,7 @@ public class ClientHandler implements Runnable {
             String httpMethod = tokenizer.nextToken();
 
             if (httpMethod.equals("GET")) {
-                System.out.println("Get method processed");
+                System.out.println("GET method processed");
 
                 String httpQueryString = tokenizer.nextToken();
 
@@ -66,6 +66,14 @@ public class ClientHandler implements Runnable {
 
                 responseBuffer.append("<html><h1>WebServer Home Page.... </h1><br>")
                         .append("<b>Welcome to my web server!</b><BR>").append("</html>");
+
+                sendResponse(socket, 200, responseBuffer.toString());
+            } else if (httpMethod.equals("POST")) {
+                System.out.println("POST method processed");
+
+                StringBuilder responseBuffer = new StringBuilder();
+
+                responseBuffer.append("POST");
 
                 sendResponse(socket, 200, responseBuffer.toString());
             } else {

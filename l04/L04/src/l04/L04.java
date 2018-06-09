@@ -6,7 +6,7 @@ import java.net.Socket;
 
 public class L04 {
     public L04() {
-        System.out.println("Webserver Started");
+        System.out.println("Web Server Started");
 
         try (ServerSocket serverSocket = new ServerSocket(8080)) {
             while (true) {
