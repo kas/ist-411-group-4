@@ -2,13 +2,20 @@ package l04;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 public class ClientHandler implements Runnable {
     private final Socket socket;
+    private final String diaryFilenameString = "diary.txt";
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
@@ -44,8 +51,8 @@ public class ClientHandler implements Runnable {
             }
 
             out.close();
-        } catch (IOException ex) {
-            // Handle exception
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.getMessage());
         }
     }
 
@@ -64,16 +71,47 @@ public class ClientHandler implements Runnable {
 
                 StringBuilder responseBuffer = new StringBuilder();
 
-                responseBuffer.append("<html><h1>WebServer Home Page.... </h1><br>")
+                responseBuffer.append("<html><h1>Web Server Home Page.... </h1><br>")
                         .append("<b>Welcome to my web server!</b><BR>").append("</html>");
 
                 sendResponse(socket, 200, responseBuffer.toString());
             } else if (httpMethod.equals("POST")) {
                 System.out.println("POST method processed");
 
+                File file = new File(diaryFilenameString);
+
+                PrintWriter printWriter = null;
+
+                // create the diary file if it doesn't already exist
+                if (file.exists() && !file.isDirectory()) {
+                    // diary file exists, do nothing
+                } else {
+                    try {
+                        printWriter = new PrintWriter(diaryFilenameString, "UTF-8");
+                    } catch (IOException e) {
+                        System.out.println("IOException: " + e.getMessage());
+                    } finally {
+                        if (printWriter != null) {
+                            printWriter.close();
+                        }
+                    }
+                }
+
+                Date date = new Date();
+                long currentUnixTimestamp = date.getTime() / 1000;
+
+                try {
+                    // write a diary entry including the current Unix time
+                    Files.write(Paths.get(diaryFilenameString),
+                            (Long.toString(currentUnixTimestamp) + " diary entry\n").getBytes(),
+                            StandardOpenOption.APPEND);
+                } catch (IOException e) {
+                    System.out.println("IOException: " + e.getMessage());
+                }
+
                 StringBuilder responseBuffer = new StringBuilder();
 
-                responseBuffer.append("POST");
+                responseBuffer.append("POST Request Received");
 
                 sendResponse(socket, 200, responseBuffer.toString());
             } else {
