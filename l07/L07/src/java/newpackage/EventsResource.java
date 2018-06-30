@@ -27,16 +27,16 @@ public class EventsResource {
 
     private void recreateEventsFile(String eventsString) throws FileNotFoundException, UnsupportedEncodingException {
         // https://www.mkyong.com/java/how-to-delete-file-in-java/
-        File file = new File(eventsFilename);
+        File eventsFile = new File(eventsFilename);
         try {
-            file.delete();
+            eventsFile.delete();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // https://www.mkyong.com/java/how-to-create-a-file-in-java/
         try {
-            file.createNewFile();
+            eventsFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
