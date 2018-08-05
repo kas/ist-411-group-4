@@ -1,0 +1,38 @@
+<application xmlns="http://wadl.dev.java.net/2009/02">
+<doc xmlns:jersey="http://jersey.java.net/" jersey:generatedBy="Jersey: 2.21 2015-08-14 21:41:51"/>
+<doc xmlns:jersey="http://jersey.java.net/" jersey:hint="This is simplified WADL with user and core resources only. To get full WADL with extended resources use the query parameter detail. Link: http://localhost:8080/L07/api/application.wadl?detail=true"/>
+<grammars/>
+<resources base="http://localhost:8080/L07/api/">
+<resource path="events">
+<method id="putEvent" name="PUT">
+<request>
+<representation mediaType="application/json"/>
+</request>
+<response>
+<representation mediaType="text/plain"/>
+</response>
+</method>
+<method id="getEvents" name="GET">
+<response>
+<representation mediaType="text/plain"/>
+</response>
+</method>
+<method id="deleteEvent" name="DELETE">
+<request>
+<representation mediaType="application/json"/>
+</request>
+<response>
+<representation mediaType="text/plain"/>
+</response>
+</method>
+<method id="postEvent" name="POST">
+<request>
+<representation mediaType="application/json"/>
+</request>
+<response>
+<representation mediaType="text/plain"/>
+</response>
+</method>
+</resource>
+</resources>
+</application>
